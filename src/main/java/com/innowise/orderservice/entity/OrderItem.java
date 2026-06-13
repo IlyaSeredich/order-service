@@ -1,9 +1,15 @@
 package com.innowise.orderservice.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "order_items")
+@EntityListeners(AuditingEntityListener.class)
 public class OrderItem {
     @Id
     private Long id;
@@ -14,4 +20,11 @@ public class OrderItem {
     @JoinColumn(name = "item_id")
     private Item item;
     private Integer quantity;
+    @CreatedDate
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: '${DB_DATABASE}'
+      POSTGRES_USER: '${DB_USER}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      APP_USER: '${APP_USER}'
+      APP_USER_PASSWORD: '${APP_USER_PASSWORD}'
+    ports:
+      - '${DB_PORT}:5432'
+    networks:
+      - order-service-network
+    volumes:
+      - postgres_data_order_service:/var/lib/postgresql/data
+      - ./docker/postgres/init/init-user.sh:/docker-entrypoint-initdb.d/init-user.sh
+
+
+volumes:
+  postgres_data_order_service:
+
+networks:
+  order-service-network:
