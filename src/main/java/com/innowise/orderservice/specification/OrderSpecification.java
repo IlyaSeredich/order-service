@@ -1,4 +1,4 @@
-package com.innowise.orderservice.specificatin;
+package com.innowise.orderservice.specification;
 
 import com.innowise.orderservice.dto.SearchOrderDto;
 import com.innowise.orderservice.entity.Order;
@@ -21,11 +21,11 @@ public class OrderSpecification {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            addDeletedPredicate(
-                    root,
-                    criteriaBuilder,
-                    predicates
-            );
+//            addDeletedPredicate(
+//                    root,
+//                    criteriaBuilder,
+//                    predicates
+//            );
 
             addCreatedAtPredicate(
                     searchOrderDto.from(),
@@ -36,7 +36,7 @@ public class OrderSpecification {
             );
 
             addStatusPredicate(
-                    searchOrderDto.status(),
+                    searchOrderDto.statuses(),
                     root,
                     criteriaBuilder,
                     predicates
@@ -46,13 +46,13 @@ public class OrderSpecification {
         };
     }
 
-    private static void addDeletedPredicate(
-            Root<Order> root,
-            CriteriaBuilder cb,
-            List<Predicate> predicates) {
-
-        predicates.add(cb.equal(root.get("deleted"), false));
-    }
+//    private static void addDeletedPredicate(
+//            Root<Order> root,
+//            CriteriaBuilder cb,
+//            List<Predicate> predicates) {
+//
+//        predicates.add(cb.equal(root.get("deleted"), false));
+//    }
 
     private static void addCreatedAtPredicate(
             LocalDateTime from,
@@ -79,16 +79,13 @@ public class OrderSpecification {
 
 
     private static void addStatusPredicate(
-            OrderStatus status,
+            List<OrderStatus> statuses,
             Root<Order> root,
             CriteriaBuilder criteriaBuilder,
             List<Predicate> predicates) {
 
-        if (status != null) {
-            Predicate predicate = criteriaBuilder.equal(
-                    root.get("status"),
-                    status
-            );
+        if (statuses != null && !statuses.isEmpty()) {
+            Predicate predicate = root.get("status").in(statuses);
             predicates.add(predicate);
         }
     }

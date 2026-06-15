@@ -10,5 +10,5 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar order-service.jar
 
-EXPOSE 8080
+EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "order-service.jar"]

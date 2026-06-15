@@ -5,15 +5,17 @@ import com.innowise.orderservice.entity.Order;
 import com.innowise.orderservice.entity.OrderItem;
 import com.innowise.orderservice.repository.OrderItemRepository;
 import com.innowise.orderservice.service.OrderItemService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class OrderItemImpl implements OrderItemService {
+public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
 
     @Override
+    @Transactional
     public void createOrderItem(Order order, Item item, Integer quantity) {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(order);

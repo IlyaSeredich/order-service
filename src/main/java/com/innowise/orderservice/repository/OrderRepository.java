@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order> {
@@ -15,5 +16,5 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 
     Optional<Order> findByIdAndDeleted(Long id, boolean deleted);
 
-    Page<Order> findAllByUserIdAndDeleted(Long userId, boolean deleted, Pageable pageable);
+    Page<Order> findAllByUserIdAndDeleted(UUID userId, boolean deleted, Pageable pageable);
 }

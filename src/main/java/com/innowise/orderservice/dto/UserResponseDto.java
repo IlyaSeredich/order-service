@@ -1,10 +1,14 @@
 package com.innowise.orderservice.dto;
 
+import lombok.Builder;
+
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
+@Builder
 public record UserResponseDto(
-        Long id,
+        UUID id,
         String name,
         String surname,
         LocalDate birthDate,

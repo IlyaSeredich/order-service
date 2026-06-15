@@ -1,7 +1,11 @@
 package com.innowise.orderservice.dto;
 
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+
 public record OrderCreateDto(
-        Long userId,
-        ItemDto itemDto
+        @NotNull(message = "Items must not be null")
+        List<ItemDto> itemDtoList
 ) {
 }

@@ -18,6 +18,7 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+
               - column:
                   name: price
                   type: numeric(19,2)
@@ -39,3 +40,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: name
+        - addUniqueConstraint:
+            tableName: items
+            columnNames: name
+            constraintName: uk_items_name
