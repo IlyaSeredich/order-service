@@ -1,4 +1,13 @@
 package com.innowise.orderservice.dto;
 
-public record OrderResponseDto() {
+import com.innowise.orderservice.enumtype.OrderStatus;
+
+import java.math.BigDecimal;
+
+public record OrderResponseDto(
+        Long id,
+        OrderStatus status,
+        BigDecimal totalPrice,
+        UserResponseDto userResponseDto
+) {
 }

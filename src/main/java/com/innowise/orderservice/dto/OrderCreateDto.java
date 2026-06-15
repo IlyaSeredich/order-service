@@ -1,4 +1,7 @@
 package com.innowise.orderservice.dto;
 
-public record OrderCreateDto() {
+public record OrderCreateDto(
+        Long userId,
+        ItemDto itemDto
+) {
 }
