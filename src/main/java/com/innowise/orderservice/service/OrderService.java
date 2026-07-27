@@ -24,4 +24,6 @@ public interface OrderService {
     void deleteOrderById(Long id);
 
     Order getOrderEntity(Long id);
+
+    void handlePaidOrder(PaymentEvent paymentEvent);
 }

@@ -84,8 +84,8 @@ public class OrderServiceImpl implements OrderService {
     public PageOrderResponseDto searchOrders(SearchOrderDto searchOrderDto, PageRequestDto pageRequestDto, String token) {
         Pageable pageable = createPageable(pageRequestDto);
         Specification<Order> specification = orderSpecification.build(searchOrderDto);
-        Page<Order> searchedUsers = orderRepository.findAll(specification, pageable);
-        return createPageOrderResponseDto(searchedUsers, token);
+        Page<Order> searchedOrders = orderRepository.findAll(specification, pageable);
+        return createPageOrderResponseDto(searchedOrders, token);
     }
 
     @Override
@@ -112,6 +112,14 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(order);
 //        order.setDeleted(true);
 //        orderRepository.save(order);
+    }
+
+    @Transactional
+    @Override
+    public void handlePaidOrder(PaymentEvent paymentEvent) {
+        Order order = orderRepository.findById(paymentEvent.orderId()).get();
+        order.setStatus(OrderStatus.PAID);
+        orderRepository.save(order);
     }
 
     @Override
